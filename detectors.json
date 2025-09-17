@@ -1,0 +1,16 @@
+{
+    "induction_loops": {
+        "J0_E": {"lane": "E0_1", "position": 50, "frequency": 60},
+        "J0_W": {"lane": "W0_1", "position": 50, "frequency": 60},
+        "J1_E": {"lane": "E1_1", "position": 50, "frequency": 60},
+        "J1_W": {"lane": "W1_1", "position": 50, "frequency": 60}
+    },
+    "speed_detectors": {
+        "SPEED_E0": {"lane": "E0_1", "position": 100, "speed_limit": 50},
+        "SPEED_W0": {"lane": "W0_1", "position": 100, "speed_limit": 50}
+    },
+    "junction_monitors": {
+        "JUNCTION_J0": {"junction": "J0", "radius": 100},
+        "JUNCTION_J1": {"junction": "J1", "radius": 100}
+    }
+}

@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./backend:/app
+    environment:
+      - DATABASE_URL=sqlite:///./data/traffic.db
+    depends_on:
+      - redis
+
+  # Redis for caching and pub/sub
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # React Dashboard
+  dashboard:
+    build:
+      context: ./frontend/dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/dashboard:/app
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+
+  # SUMO Simulation (optional container)
+  sumo:
+    build:
+      context: ./sumo
+      dockerfile: Dockerfile
+    ports:
+      - "8813:8813"  # TraCI port
+    volumes:
+      - ./sumo:/sumo
+      - ./data/logs:/sumo/logs
+    environment:
+      - SUMO_HOME=/usr/share/sumo
+
+  # TraCI Controller
+  controller:
+    build:
+      context: ./traci_controller
+      dockerfile: Dockerfile
+    volumes:
+      - ./traci_controller:/app
+      - ./data/logs:/app/logs
+    depends_on:
+      - sumo
+      - backend
+    environment:
+      - SUMO_HOST=sumo
+      - API_URL=http://backend:8000
+
+volumes:
+  redis_data:

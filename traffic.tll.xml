@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tlLogics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="J0" programID="adaptive" type="actuated">
+        <phase duration="30" state="GGGrrrr" minDur="10" maxDur="60"/>
+        <phase duration="5" state="yyyGGGG" minDur="5" maxDur="5"/>
+        <phase duration="30" state="rrrGGGG" minDur="10" maxDur="60"/>
+        <phase duration="5" state="GGGyyy" minDur="5" maxDur="5"/>
+    </tlLogic>
+</tlLogics>
